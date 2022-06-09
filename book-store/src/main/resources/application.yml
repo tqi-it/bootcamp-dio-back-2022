@@ -4,11 +4,14 @@ spring:
     username: application
     password: 123456@application
   jpa:
+    show-sql: true
     hibernate:
       ddl-auto: update
+      log-level: DEBUG
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        format_sql: true
 
 #  security:
 #    user:

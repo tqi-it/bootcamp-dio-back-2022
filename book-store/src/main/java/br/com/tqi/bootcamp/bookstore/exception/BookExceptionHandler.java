@@ -16,16 +16,16 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @Slf4j
 public class BookExceptionHandler {
 
-    @ExceptionHandler(BusinessException.class)
-    public ResponseEntity<ErrorResponse> businessHandler(BusinessException ex) {
-        log.error(ex.getMessage());
+    @ExceptionHandler(APIBusinessException.class)
+    public ResponseEntity<ErrorResponse> businessHandler(APIBusinessException ex) {
+        log.info(ex.getMessage());
         return ResponseEntity.status(ex.getHttpStatus()).body(new ErrorResponse(ex.getMessage()));
     }
 
     @ExceptionHandler(BindException.class)
     public ResponseEntity<ErrorMessageResponse> validationHandler(BindException ex) {
         List<ErrorDetailResponse> detailList = ex.getFieldErrors().stream().map(ErrorDetailResponse::new).collect(Collectors.toList());
-        log.error("Validation error={}", detailList);
+        log.info("Validation error={}", detailList);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorMessageResponse(detailList));
     }
 

@@ -9,7 +9,7 @@
 Antes de trabalhar/executar no projeto
 
 * Baixar plugin do lombok acessando `File/Setting`. Na nova janela use a pesquisa e busque pela palavra `plugins`. Na consulta de plugins digite `lombok`. No resultado da pesquisa clique em `Install`.
-
+* Criar o diretório para imagens
 ### Persistência de arquivos
 
 Por se tratar de um projeto didático optamos por persistir os arquivos localmente. Em um ambiente produtivo esta abordagem geralmente não é a mais adequada. Outras formas devem ser consideradas, como por exemplo:
