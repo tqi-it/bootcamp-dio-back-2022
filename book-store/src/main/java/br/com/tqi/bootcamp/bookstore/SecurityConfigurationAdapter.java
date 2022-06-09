@@ -15,17 +15,19 @@ public class SecurityConfigurationAdapter extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-                .authorizeRequests()
+        http.authorizeRequests()
+                .antMatchers("/book-store.html","/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
                 .antMatchers("/").hasRole("admin")
-                .anyRequest().authenticated().and().httpBasic();
+                .anyRequest().authenticated()
+                .and()
+                .httpBasic();
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()
                 .withUser("bootcamp")
-                .password("vempratqi")
+                .password(passwordEncoder().encode("vempratqi"))
                 .roles("admin");
     }
 
