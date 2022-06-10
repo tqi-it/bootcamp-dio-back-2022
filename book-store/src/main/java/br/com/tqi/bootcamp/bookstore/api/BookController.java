@@ -61,7 +61,7 @@ public class BookController {
     }
 
     @PutMapping(value = "/{code}", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
-    public ResponseEntity<BookResponse> updateBook(@PathVariable String code, @ModelAttribute BookRequest request) {
+    public ResponseEntity<BookResponse> updateBook(@PathVariable String code, @Valid @ModelAttribute BookRequest request) {
         log.info("Update book | code={} | request={}", code, request);
         return ResponseEntity.ok(bookService.updateBook(code, request));
     }

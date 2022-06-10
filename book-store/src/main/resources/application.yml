@@ -16,3 +16,9 @@ spring:
 springdoc:
   swagger-ui:
     path: /book-store.html
+
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG
