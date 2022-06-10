@@ -23,6 +23,7 @@ public class BookEntity {
     private String code;
     private String name;
     private Integer price;
+    @Column(name = "image_url")
     private String image;
 
     @ManyToOne(optional = false)

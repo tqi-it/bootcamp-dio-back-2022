@@ -1,5 +1,6 @@
 package br.com.tqi.bootcamp.bookstore.api;
 
+import br.com.tqi.bootcamp.bookstore.api.request.BookPriceUpdateRequest;
 import br.com.tqi.bootcamp.bookstore.api.request.BookRequest;
 import br.com.tqi.bootcamp.bookstore.api.response.BookResponse;
 import br.com.tqi.bootcamp.bookstore.api.response.BookResponsePageable;
@@ -54,7 +55,7 @@ public class BookController {
     }
 
     @PatchMapping("/{code}")
-    public ResponseEntity<BookResponse> updatePrice(@PathVariable String code, @RequestBody BookRequest request) {
+    public ResponseEntity<BookResponse> updatePrice(@PathVariable String code, @RequestBody BookPriceUpdateRequest request) {
         log.info("Update book price | code={} | request={}", code, request);
         return ResponseEntity.ok(bookService.updatePrice(code, request));
     }

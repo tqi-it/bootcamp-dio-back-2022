@@ -1,5 +1,6 @@
 package br.com.tqi.bootcamp.bookstore.service;
 
+import br.com.tqi.bootcamp.bookstore.api.request.BookPriceUpdateRequest;
 import br.com.tqi.bootcamp.bookstore.api.request.BookRequest;
 import br.com.tqi.bootcamp.bookstore.api.response.BookResponse;
 import br.com.tqi.bootcamp.bookstore.api.response.BookResponsePageable;
@@ -25,7 +26,6 @@ public class BookService {
 
     @Transactional
     public BookResponse createBook(BookRequest request) {
-
         AuthorEntity authorEntity = findAuthorByCode(request.getAuthor_code());
 
         String fileName = generateFileName();
@@ -40,8 +40,7 @@ public class BookService {
         return BookResponse.entityToResponse(findBookByCode(code));
     }
 
-    @Transactional
-    public BookResponse updatePrice(final String code, final BookRequest request) {
+    public BookResponse updatePrice(final String code, final BookPriceUpdateRequest request) {
         BookEntity bookEntity = findBookByCode(code);
         bookEntity.setPrice(Integer.valueOf(request.getPrice()));
         return BookResponse.entityToResponse(bookRepository.save(bookEntity));

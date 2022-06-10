@@ -24,7 +24,7 @@ public class FileService {
             Files.write(createdFile, file.getBytes());
             log.info("File successfully persisted: {}", fileDirectory);
         } catch (IOException ex) {
-            log.error("Failed to persist file\n: {}", fileDirectory);
+            log.error("Failed to persist file\n: {}", fileDirectory, ex);
             throw new RuntimeException(ex);
         }
 
@@ -36,9 +36,9 @@ public class FileService {
         try {
             Files.delete(Paths.get(fileName));
             log.info("File deleted successfully: {}", fileName);
-        } catch (IOException e) {
-            log.error("Failed to delete file: {}", fileName);
-            throw new RuntimeException(e);
+        } catch (IOException ex) {
+            log.error("Failed to delete file: {}", fileName, ex);
+            throw new RuntimeException(ex);
         }
     }
 
