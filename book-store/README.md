@@ -5,6 +5,7 @@
 * Spring Security
 * Lombok
 * MySQL
+* Swagger 3
 
 Antes de trabalhar/executar no projeto
 
@@ -16,3 +17,10 @@ Por se tratar de um projeto didático optamos por persistir os arquivos localmen
 
 * Serviços de armazenagem de arquivos na núvem (AWS S3)
 * Servidor de arquivos da empresa
+
+### Acessando o Swagger
+* http://localhost:8080/book-store.html
+
+### Usuário e senha
+* usuário: bootcamp
+* senha: vempratqi
