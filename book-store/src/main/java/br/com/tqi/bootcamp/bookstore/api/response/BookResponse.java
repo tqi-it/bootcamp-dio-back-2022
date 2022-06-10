@@ -10,7 +10,7 @@ public class BookResponse {
 
     private String code;
     private String name;
-    private Integer price;
+    private String price;
     private String image;
     private String author;
 
@@ -19,7 +19,7 @@ public class BookResponse {
                 .code(entity.getCode())
                 .image(entity.getImage())
                 .name(entity.getName())
-                .price(entity.getPrice())
+                .price(String.valueOf(entity.getPrice()))
                 .author(entity.getAuthor().getName())
                 .build();
     }

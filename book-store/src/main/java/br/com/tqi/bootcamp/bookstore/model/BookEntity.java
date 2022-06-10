@@ -29,10 +29,11 @@ public class BookEntity {
     @ManyToOne(optional = false)
     private AuthorEntity author;
 
-    public BookEntity(final BookRequest request, final String urlImage) {
+    public BookEntity(final BookRequest request, final String urlImage, final AuthorEntity author) {
         this.code = UUID.randomUUID().toString().toUpperCase();
         this.name = request.getName();
         this.price = Integer.valueOf(request.getPrice());
         this.image = urlImage;
+        this.author = author;
     }
 }
