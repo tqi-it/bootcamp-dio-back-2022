@@ -31,8 +31,7 @@ public class BookService {
         String fileName = generateFileName();
         String urlImage = fileService.persist(request.getFile(), fileName);
 
-        BookEntity bookEntity = new BookEntity(request, urlImage);
-        bookEntity.setAuthor(authorEntity);
+        BookEntity bookEntity = new BookEntity(request, urlImage, authorEntity);
         return BookResponse.entityToResponse(bookRepository.save(bookEntity));
     }
 

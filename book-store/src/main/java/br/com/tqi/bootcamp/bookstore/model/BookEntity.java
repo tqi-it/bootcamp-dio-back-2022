@@ -8,11 +8,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity(name = "book")
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Data
 public class BookEntity {
 
@@ -29,10 +33,11 @@ public class BookEntity {
     @ManyToOne(optional = false)
     private AuthorEntity author;
 
-    public BookEntity(final BookRequest request, final String urlImage) {
+    public BookEntity(final BookRequest request, final String urlImage, final AuthorEntity author) {
         this.code = UUID.randomUUID().toString().toUpperCase();
         this.name = request.getName();
         this.price = Integer.valueOf(request.getPrice());
         this.image = urlImage;
+        this.author = author;
     }
 }
