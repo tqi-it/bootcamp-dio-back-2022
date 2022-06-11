@@ -1,7 +1,7 @@
 package br.com.tqi.bootcamp.bookstore.api;
 
+import br.com.tqi.bootcamp.bookstore.api.request.BookPriceUpdateRequest;
 import br.com.tqi.bootcamp.bookstore.api.request.BookRequest;
-import br.com.tqi.bootcamp.bookstore.api.request.PriceUpdateRequest;
 import br.com.tqi.bootcamp.bookstore.api.response.BookResponse;
 import br.com.tqi.bootcamp.bookstore.api.response.BookResponsePageable;
 import br.com.tqi.bootcamp.bookstore.service.BookService;
@@ -48,20 +48,20 @@ public class BookController {
     @GetMapping
     public ResponseEntity<BookResponsePageable> retrieveAllBooks(
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "3") int size) {
+            @RequestParam(defaultValue = "5") int size) {
         Pageable paging = PageRequest.of(page, size);
         log.info("Retrieve book list | page={} size={}", page, size);
         return ResponseEntity.ok(bookService.getAllBooks(paging));
     }
 
     @PatchMapping("/{code}")
-    public ResponseEntity<BookResponse> updatePrice(@PathVariable String code, @RequestBody PriceUpdateRequest request) {
+    public ResponseEntity<BookResponse> updatePrice(@PathVariable String code, @RequestBody BookPriceUpdateRequest request) {
         log.info("Update book price | code={} | request={}", code, request);
         return ResponseEntity.ok(bookService.updatePrice(code, request));
     }
 
     @PutMapping(value = "/{code}", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
-    public ResponseEntity<BookResponse> updateBook(@PathVariable String code, @ModelAttribute BookRequest request) {
+    public ResponseEntity<BookResponse> updateBook(@PathVariable String code, @Valid @ModelAttribute BookRequest request) {
         log.info("Update book | code={} | request={}", code, request);
         return ResponseEntity.ok(bookService.updateBook(code, request));
     }

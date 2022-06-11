@@ -1,7 +1,7 @@
 package br.com.tqi.bootcamp.bookstore.service;
 
+import br.com.tqi.bootcamp.bookstore.api.request.BookPriceUpdateRequest;
 import br.com.tqi.bootcamp.bookstore.api.request.BookRequest;
-import br.com.tqi.bootcamp.bookstore.api.request.PriceUpdateRequest;
 import br.com.tqi.bootcamp.bookstore.api.response.BookResponse;
 import br.com.tqi.bootcamp.bookstore.api.response.BookResponsePageable;
 import br.com.tqi.bootcamp.bookstore.exception.AuthorNotFoundException;
@@ -12,7 +12,6 @@ import br.com.tqi.bootcamp.bookstore.repository.AuthorRepository;
 import br.com.tqi.bootcamp.bookstore.repository.BookRepository;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,7 +26,6 @@ public class BookService {
 
     @Transactional
     public BookResponse createBook(BookRequest request) {
-
         AuthorEntity authorEntity = findAuthorByCode(request.getAuthor_code());
 
         String fileName = generateFileName();
@@ -42,10 +40,9 @@ public class BookService {
         return BookResponse.entityToResponse(findBookByCode(code));
     }
 
-    @Transactional
-    public BookResponse updatePrice(final String code, final PriceUpdateRequest request) {
+    public BookResponse updatePrice(final String code, final BookPriceUpdateRequest request) {
         BookEntity bookEntity = findBookByCode(code);
-        bookEntity.setPrice(request.getPrice());
+        bookEntity.setPrice(Integer.valueOf(request.getPrice()));
         return BookResponse.entityToResponse(bookRepository.save(bookEntity));
     }
 
@@ -54,12 +51,8 @@ public class BookService {
         BookEntity bookEntity = findBookByCode(code);
         AuthorEntity authorEntity = findAuthorByCode(request.getAuthor_code());
         String oldImage = bookEntity.getImage();
-        BeanUtils.copyProperties(request, bookEntity, "id", "code");
-
-        String fileName = generateFileName();
-        String urlImage = fileService.persist(request.getFile(), fileName);
-        bookEntity.setImage(urlImage);
-        bookEntity.setAuthor(authorEntity);
+        String urlImage = fileService.persist(request.getFile(), generateFileName());
+        replaceBookEntity(bookEntity, authorEntity, request, urlImage);
 
         bookRepository.save(bookEntity);
 
@@ -68,12 +61,12 @@ public class BookService {
         return BookResponse.entityToResponse(bookEntity);
     }
 
-    public BookResponsePageable getAllBooks(Pageable pageable) {
+    public BookResponsePageable getAllBooks(final Pageable pageable) {
         return BookResponsePageable.toResponse(bookRepository.findAll(pageable));
     }
 
     @Transactional
-    public void deleteBook(String code) {
+    public void deleteBook(final String code) {
         BookEntity entity = findBookByCode(code);
         bookRepository.delete(entity);
         fileService.delete(entity.getImage());
@@ -85,6 +78,13 @@ public class BookService {
 
     private AuthorEntity findAuthorByCode(final String code) {
         return authorRepository.findByCode(code).orElseThrow(AuthorNotFoundException::new);
+    }
+
+    private void replaceBookEntity(BookEntity entity, final AuthorEntity author, final BookRequest request, final String urlImage) {
+        entity.setImage(urlImage);
+        entity.setName(request.getName());
+        entity.setPrice(Integer.valueOf(request.getPrice()));
+        entity.setAuthor(author);
     }
 
     private String generateFileName() {

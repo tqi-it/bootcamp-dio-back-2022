@@ -4,13 +4,21 @@ spring:
     username: application
     password: 123456@application
   jpa:
+    show-sql: true
     hibernate:
       ddl-auto: update
+      log-level: DEBUG
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        format_sql: true
 
-#  security:
-#    user:
-#      name: application
-#      password: password
+springdoc:
+  swagger-ui:
+    path: /book-store.html
+
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG

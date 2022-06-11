@@ -23,7 +23,7 @@ public class AuthorController {
     @GetMapping
     public ResponseEntity<AuthorResponsePageable> retrieveAllAuthors(
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "3") int size) {
+            @RequestParam(defaultValue = "5") int size) {
         Pageable paging = PageRequest.of(page, size);
         log.info("Retrieve author list | page={} | size={}", page, size);
         return ResponseEntity.ok(AuthorResponsePageable.toResponse(repository.findAll(paging)));
