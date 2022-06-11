@@ -13,7 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Slf4j
 public class FileService {
 
-    private final String repositoryFileDirectory = Paths.get("/tmp/book_store/images").toString();
+    private final String repositoryFileDirectory = Paths.get("images/").toString();
 
     public String persist(final MultipartFile file, final String fileName) {
 
