@@ -197,6 +197,26 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Delete book",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/books/F27ED20E-5156-4875-89A8-819CB00D4089",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"books",
+						"F27ED20E-5156-4875-89A8-819CB00D4089"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"auth": {
